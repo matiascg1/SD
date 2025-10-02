@@ -1,0 +1,17 @@
+\begin{table}[h]
+\centering
+\caption{Comparación de Experimentos}
+\label{tab:comparison}
+\begin{tabular}{|l|r|r|r|r|}
+\hline
+\textbf{Experimento} & \textbf{Hit Rate (\%)} & \textbf{Total Requests} & \textbf{Avg Score} & \textbf{Std Score} \\
+\hline
+exp4\_lru\_uniform & 1.09 & 274 & 0.1013 & 0.1110 \\
+exp3\_fifo\_poisson & 0.56 & 177 & 0.0811 & 0.0839 \\
+exp2\_lfu\_poisson & 0.53 & 190 & 0.0964 & 0.1052 \\
+exp1 & 0.00 & 4 & 0.1000 & 0.1094 \\
+exp1\_lru\_poisson & 0.00 & 243 & 0.1024 & 0.1091 \\
+exp5\_lru\_exponential & 0.00 & 208 & 0.1008 & 0.0945 \\
+\hline
+\end{tabular}
+\end{table}

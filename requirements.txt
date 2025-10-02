@@ -1,0 +1,14 @@
+pandas>=1.0.0           
+numpy>=1.18.0           
+scikit-learn>=0.22.0     
+python-dotenv>=0.15.0    
+redis>=3.5.3             
+google-generativeai>=0.3.0 
+ollama>=0.1.0            
+groq>=0.4.0
+Flask>=2.0.0             
+gunicorn>=20.0.0         
+fuzzywuzzy
+pyyaml>=5.4.0
+matplotlib>=3.3.0
+seaborn>=0.11.0

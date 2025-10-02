@@ -1,0 +1,164 @@
+experiments:
+  # Experimento 1: Baseline con LRU y Poisson
+  exp1_lru_poisson:
+    name: "Experimento 1: LRU + Poisson (Baseline)"
+    description: "Configuración baseline con política LRU y distribución Poisson"
+    cache:
+      policy: "LRU"
+      max_size: 10000
+      ttl_seconds: 3600
+    traffic:
+      distribution: "POISSON"
+      lambda: 0.5
+      num_requests: 5
+      max_delay_seconds: 2
+    llm:
+      provider: "OLLAMA"
+      model: "llama3.2"
+    output:
+      db_path: "data/results_exp1.db"
+
+  # Experimento 2: LFU vs LRU
+  exp2_lfu_poisson:
+    name: "Experimento 2: LFU + Poisson"
+    description: "Evaluar política LFU con la misma distribución de tráfico"
+    cache:
+      policy: "LFU"
+      max_size: 10000
+      ttl_seconds: 3600
+    traffic:
+      distribution: "POISSON"
+      lambda: 0.5
+      num_requests: 50
+      max_delay_seconds: 10
+    llm:
+      provider: "OLLAMA"
+      model: "llama3.2"
+    output:
+      db_path: "data/results_exp2.db"
+
+  # Experimento 3: FIFO vs LRU
+  exp3_fifo_poisson:
+    name: "Experimento 3: FIFO + Poisson"
+    description: "Evaluar política FIFO con la misma distribución de tráfico"
+    cache:
+      policy: "FIFO"
+      max_size: 10000
+      ttl_seconds: 3600
+    traffic:
+      distribution: "POISSON"
+      lambda: 0.5
+      num_requests: 50
+      max_delay_seconds: 10
+    llm:
+      provider: "OLLAMA"
+      model: "llama3.2"
+    output:
+      db_path: "data/results_exp3.db"
+
+  # Experimento 4: Distribución Uniforme
+  exp4_lru_uniform:
+    name: "Experimento 4: LRU + Uniforme"
+    description: "Evaluar impacto de distribución uniforme de tráfico"
+    cache:
+      policy: "LRU"
+      max_size: 10000
+      ttl_seconds: 3600
+    traffic:
+      distribution: "UNIFORM"
+      lambda: 0.5
+      num_requests: 50
+      max_delay_seconds: 10
+    llm:
+      provider: "OLLAMA"
+      model: "llama3.2"
+    output:
+      db_path: "data/results_exp4.db"
+
+  # Experimento 5: Distribución Exponencial
+  exp5_lru_exponential:
+    name: "Experimento 5: LRU + Exponencial"
+    description: "Evaluar impacto de distribución exponencial de tráfico"
+    cache:
+      policy: "LRU"
+      max_size: 10000
+      ttl_seconds: 3600
+    traffic:
+      distribution: "EXPONENTIAL"
+      lambda: 0.5
+      num_requests: 50
+      max_delay_seconds: 10
+    llm:
+      provider: "OLLAMA"
+      model: "llama3.2"
+    output:
+      db_path: "data/results_exp5.db"
+
+  # Experimento 6: Caché Pequeña
+  exp6_small_cache:
+    name: "Experimento 6: Caché Pequeña (1K)"
+    description: "Evaluar rendimiento con caché limitada"
+    cache:
+      policy: "LRU"
+      max_size: 1000
+      ttl_seconds: 3600
+    traffic:
+      distribution: "POISSON"
+      lambda: 0.5
+      num_requests: 50
+      max_delay_seconds: 10
+    llm:
+      provider: "OLLAMA"
+      model: "llama3.2"
+    output:
+      db_path: "data/results_exp6.db"
+
+  # Experimento 7: Caché Grande
+  exp7_large_cache:
+    name: "Experimento 7: Caché Grande (50K)"
+    description: "Evaluar rendimiento con caché amplia"
+    cache:
+      policy: "LRU"
+      max_size: 50000
+      ttl_seconds: 3600
+    traffic:
+      distribution: "POISSON"
+      lambda: 0.5
+      num_requests: 50
+      max_delay_seconds: 10
+    llm:
+      provider: "OLLAMA"
+      model: "llama3.2"
+    output:
+      db_path: "data/results_exp7.db"
+
+  # Experimento 8: Alta Carga
+  exp8_high_load:
+    name: "Experimento 8: Alta Carga (λ=2.0)"
+    description: "Evaluar sistema bajo alta carga de tráfico"
+    cache:
+      policy: "LRU"
+      max_size: 10000
+      ttl_seconds: 3600
+    traffic:
+      distribution: "POISSON"
+      lambda: 2.0
+      num_requests: 50
+      max_delay_seconds: 10
+    llm:
+      provider: "OLLAMA"
+      model: "llama3.2"
+    output:
+      db_path: "data/results_exp8.db"
+
+# Configuración de análisis
+analysis:
+  output_dir: "data/analysis"
+  generate_plots: true
+  plot_formats: ["png", "pdf"]
+  metrics:
+    - cache_hit_rate
+    - cache_miss_rate
+    - quality_score_distribution
+    - request_count_distribution
+    - temporal_analysis

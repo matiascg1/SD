@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: yahoo_redis
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - yahoo_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: yahoo_app
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+      - ./src:/app/src
+      - ./config:/app/config
+      - ./.env:/app/.env
+    environment:
+      - CACHE_HOST=redis
+      - CACHE_PORT=6379
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - yahoo_network
+    stdin_open: true
+    tty: true
+
+volumes:
+  redis_data:
+
+networks:
+  yahoo_network:
+    driver: bridge
